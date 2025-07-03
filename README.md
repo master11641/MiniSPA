@@ -49,7 +49,7 @@
 </a>
 ```
 
-### 3. نمایش فقط در DOM بدون تغییر آدرس (مثلاً در تب یا کارت خاص)
+### 3. نمایش فقط در DOM بدون تغییر آدرس (مثلاً در تب یا هر مکان خاص)
 
 ```html
 <a href="/news/summary" data-xhr="/news/summary" data-target="#summary-section">
