@@ -130,6 +130,27 @@
 - پاسخ را مجبور به تازه‌سازی از سرور می‌کند
 
 ```csharp
+    public class PartialNoCacheMiddleware(RequestDelegate next)
+    {
+        private readonly RequestDelegate _next = next;
+        public async Task InvokeAsync(HttpContext context)
+        {
+            var headers = context.Request.Headers;
+            var isPartial = headers.ContainsKey("X-Partial") && headers["X-Partial"] == "true";
+            var isAjax = headers.ContainsKey("X-Requested-With") && headers["X-Requested-With"] == "XMLHttpRequest";
+
+            if (isPartial || isAjax)
+            {
+                var responseHeaders = context.Response.Headers;
+
+                responseHeaders["Cache-Control"] = "no-store, no-cache, must-revalidate, max-age=0";
+                responseHeaders["Pragma"] = "no-cache";
+                responseHeaders["Expires"] = "0";
+            }
+
+            await _next(context);
+        }
+    }
 app.UseMiddleware<PartialNoCacheMiddleware>();
 ```
 
