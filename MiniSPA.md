@@ -163,6 +163,4 @@ app.UseMiddleware<PartialNoCacheMiddleware>();
 - partial layout
 - history state را تجربه کنند.
 
-در صورت نیاز به نسخه Minified یا کد کامل، فقط کافیست اعلام کنید.
-
 </div>
